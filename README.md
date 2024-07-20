@@ -2,6 +2,9 @@ FortConsole
 This is a forked and revamped version of KyeOnDiscord's FortConsole
 
 
+Original Repo:
+https://github.com/KyeOnDiscord/FortConsole
+
 
 An external Fortnite console that reads log files.
 
