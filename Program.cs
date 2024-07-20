@@ -11,12 +11,12 @@ namespace FortniteExternalConsole
         static void Main()
         {
             string baseTitle = "FortConsole Made By KyeOnDiscord And Revamped by XyzKonik";
-            int titleWidth = Console.WindowWidth; // Get the console window width
-            int scrollSpeed = 200; // Adjust the scroll speed (milliseconds)
+            int titleWidth = Console.WindowWidth; 
+            int scrollSpeed = 200; 
 
-            // Start the title scrolling effect in a separate thread
+            
             Thread titleThread = new Thread(() => ScrollTitle(baseTitle, titleWidth, scrollSpeed));
-            titleThread.IsBackground = true; // Make it a background thread so it exits when the main thread exits
+            titleThread.IsBackground = true; 
             titleThread.Start();
 
             string logpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"FortniteGame\Saved\Logs\FortniteGame.log");
@@ -31,7 +31,7 @@ namespace FortniteExternalConsole
             {
                 if (IsFortniteRunning())
                 {
-                    // Reset the message shown flag when Fortnite is running
+                    
                     messageShown = false;
 
                     if (File.Exists(logpath))
@@ -39,7 +39,7 @@ namespace FortniteExternalConsole
                         FileInfo fileInfo = new FileInfo(logpath);
                         long currentFileSize = fileInfo.Length;
 
-                        // Check if the file has been cleared or reinitialized
+                        
                         if (fileStream == null || currentFileSize < lastFileSize)
                         {
                             fileStream?.Close();
@@ -49,12 +49,12 @@ namespace FortniteExternalConsole
                             Console.Clear();
                             fileStream = new FileStream(logpath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                             streamReader = new StreamReader(fileStream);
-                            fileStream.Seek(0, SeekOrigin.End); // Start reading from the end of the file
+                            fileStream.Seek(0, SeekOrigin.End);
                         }
 
                         lastFileSize = currentFileSize;
 
-                        // Continuously read new logs appended to the file
+                      
                         ReadLogFile(streamReader);
                     }
                     else
@@ -64,7 +64,7 @@ namespace FortniteExternalConsole
                 }
                 else
                 {
-                    // Print the message only once in blue if it's not already shown
+                   
                     if (!messageShown)
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
@@ -74,24 +74,24 @@ namespace FortniteExternalConsole
                     }
                 }
 
-                // Sleep for a short period before rechecking
+              
                 Thread.Sleep(1000);
             }
         }
 
         static void ScrollTitle(string baseTitle, int titleWidth, int scrollSpeed)
         {
-            // Pad the baseTitle with spaces to ensure smooth scrolling
+           
             string title = baseTitle.PadLeft(titleWidth + baseTitle.Length);
 
-            // Scroll the title from right to left
+            
             for (int i = 0; i < title.Length - titleWidth; i++)
             {
                 Console.Title = title.Substring(i, titleWidth);
                 Thread.Sleep(scrollSpeed);
             }
 
-            // Set the final title position
+           
             Console.Title = baseTitle;
         }
 
@@ -108,7 +108,7 @@ namespace FortniteExternalConsole
                 string logLine;
                 while ((logLine = streamReader.ReadLine()) != null)
                 {
-                    // Highlight URLs in blue
+                   
                     string highlightedLog = HighlightUrls(logLine);
                     Console.WriteLine(highlightedLog);
                 }
@@ -121,12 +121,12 @@ namespace FortniteExternalConsole
 
         static string HighlightUrls(string text)
         {
-            // Define a regex pattern to match URLs
+            
             string urlPattern = @"(https?:\/\/[^\s]+)";
-            string blueColor = "\x1b[94m"; // ANSI escape code for blue text
-            string resetColor = "\x1b[0m"; // ANSI escape code to reset text color
+            string blueColor = "\x1b[94m"; 
+            string resetColor = "\x1b[0m"; 
 
-            // Replace URLs with highlighted versions
+           
             string highlightedText = Regex.Replace(text, urlPattern, match =>
                 $"{blueColor}{match.Value}{resetColor}");
 
