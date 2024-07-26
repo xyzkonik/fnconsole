@@ -12,6 +12,7 @@ Prerequisites:
 
 Usage:
 Open FortniteExternalConsole.exe at any time, and it'll display the console.
+![ezgif-3-aa63bce4a3](https://github.com/user-attachments/assets/9ed9e82a-ef96-4b88-ab15-4a9cec5bfff8)
 
 
 
